@@ -22,7 +22,7 @@ export default defineConfig(({ command }) => {
     ],
     resolve: {
       alias: {
-        '@': '/src', // '@' 现在指向项目的 src 目录
+        '@': path.resolve(__dirname, './src'), // '@' 现在指向项目的 src 目录
         // 你可以添加更多的别名
       },
     },

@@ -7,6 +7,8 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import 'virtual:svg-icons-register'
 import gloablComponent from './components/index'
 import '@/assets/styles/index.scss'
+import router from './router'
+import pinia from './store'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -16,4 +18,6 @@ app.use(ElementPlus, {
   locale: zhCn,
 })
 app.use(gloablComponent)
+app.use(pinia)
+app.use(router)
 app.mount('#app')
