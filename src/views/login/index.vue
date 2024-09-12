@@ -2,11 +2,16 @@
   <div class="login_box">
     <div class="login_form">
       <h1 class="title">后台管理系统</h1>
-      <el-form class="form_style">
-        <el-form-item>
+      <el-form
+        class="form_style"
+        :model="loginForm"
+        :rules="rules"
+        ref="loginFormRef"
+      >
+        <el-form-item prop="username">
           <el-input :prefix-icon="User" v-model="loginForm.username" />
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="password">
           <el-input
             show-password
             :prefix-icon="Lock"
@@ -18,7 +23,7 @@
             :loading="loading"
             type="primary"
             class="login_btn"
-            @click="loginSubmit"
+            @click="loginSubmit(loginFormRef)"
           >
             登录
           </el-button>
@@ -33,25 +38,56 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import useUserStore from '@/store/modules/user'
 import { useRouter } from 'vue-router'
-import { ElNotification } from 'element-plus'
+import { ElNotification, FormInstance, FormRules } from 'element-plus'
+import { getTime } from '@/utils/time'
 
 const router = useRouter()
 const useStore = useUserStore()
+const loginFormRef = ref<FormInstance>()
 
 const loginForm = reactive({ username: 'admin', password: '111111' })
 const loading = ref(false)
 
-const loginSubmit = async () => {
-  loading.value = true
+const rules = reactive<FormRules>({
+  username: [
+    {
+      required: true,
+      min: 5,
+      max: 64,
+      message: '账号长度为5~64位',
+      trigger: 'change',
+    },
+  ],
+  password: [
+    {
+      required: true,
+      min: 6,
+      max: 15,
+      message: '密码长度为6~15位',
+      trigger: 'change',
+    },
+  ],
+})
+
+const loginSubmit = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
   try {
-    await useStore.userLogin(loginForm)
-    //跳转到首页
-    router.push('/')
-    ElNotification({
-      type: 'success',
-      message: '登录成功',
+    await formEl.validate(async (valid, fields) => {
+      if (valid) {
+        loading.value = true
+        await useStore.userLogin(loginForm)
+        //跳转到首页
+        router.push('/')
+        ElNotification({
+          type: 'success',
+          message: '登录成功',
+          title: `HI,${getTime()}好`,
+        })
+        loading.value = false
+      } else {
+        console.log('error submit!', fields)
+      }
     })
-    loading.value = false
   } catch (error) {
     loading.value = false
     ElNotification({
