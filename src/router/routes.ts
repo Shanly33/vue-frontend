@@ -5,7 +5,8 @@ export const commonRoute = [
     component: () => import('@/views/login/index.vue'),
     name: 'login',
     label: '登录',
-    hidden: true, //在菜单中是否隐藏
+    hidden: false, //在菜单中是否隐藏
+    icon: 'Promotion',
   },
   {
     //主页
@@ -14,6 +15,7 @@ export const commonRoute = [
     name: 'layout',
     label: 'layout',
     hidden: false,
+    icon: 'Avatar',
     children: [
       {
         path: '/home',
@@ -21,6 +23,7 @@ export const commonRoute = [
         name: 'home',
         label: '首页',
         hidden: false,
+        icon: 'HomeFilled',
       },
       {
         path: '/user',
@@ -28,6 +31,7 @@ export const commonRoute = [
         name: 'user',
         label: '用户管理',
         hidden: false,
+        icon: 'Avatar',
       },
     ],
   },
@@ -37,12 +41,14 @@ export const commonRoute = [
     component: () => import('@/views/404/index.vue'),
     name: '404',
     label: '404',
-    hidden: true,
+    hidden: false,
+    icon: 'Avatar',
   },
   {
     path: '/:pathMatch(.*)*',
     redirect: '/404',
     name: 'any',
-    hidden: true,
+    hidden: false,
+    icon: 'Avatar',
   },
 ]

@@ -3,7 +3,9 @@
     <!-- 没有子路由 -->
     <el-menu-item v-if="!item.children && !item.hidden" :index="item.path">
       <template #title>
-        <span>标&nbsp;</span>
+        <el-icon>
+          <component :is="item.icon"></component>
+        </el-icon>
         <span>{{ item.label }}</span>
       </template>
     </el-menu-item>
@@ -15,6 +17,9 @@
       :index="item.children[0].path"
     >
       <template #title>
+        <el-icon>
+          <component :is="item.children[0].icon"></component>
+        </el-icon>
         <span>{{ item.children[0].label }}</span>
       </template>
     </el-menu-item>
@@ -25,6 +30,9 @@
       :index="item.path"
     >
       <template #title>
+        <el-icon>
+          <component :is="item.icon"></component>
+        </el-icon>
         <span>{{ item.label }}</span>
       </template>
       <Menu :menuList="item.children"></Menu>
