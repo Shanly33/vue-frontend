@@ -2,12 +2,14 @@ import { defineStore } from 'pinia'
 import { reqLogin } from '@/api/user'
 import type { loginForm, loginResponseData } from '@/api/user/type'
 import type { UserState } from './types/type'
+import { commonRoute } from '@/router/routes'
 
 const useUserStore = defineStore('User', {
   //存储数据
   state: (): UserState => {
     return {
       token: localStorage.getItem('TOKEN'), //用户唯一标识token
+      menuRoutes: commonRoute,
     }
   },
   //异步|逻辑的地方

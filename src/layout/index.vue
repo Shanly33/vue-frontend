@@ -6,14 +6,7 @@
       <!-- 菜单 -->
       <el-scrollbar class="scrollbar">
         <el-menu class="custom-menu">
-          <el-menu-item index="1">首页</el-menu-item>
-          <el-menu-item index="2">数据大屏</el-menu-item>
-          <el-sub-menu index="3">
-            <template #title>权限管理</template>
-            <el-menu-item index="2-1">用户管理</el-menu-item>
-            <el-menu-item index="2-2">角色管理</el-menu-item>
-            <el-menu-item index="2-3">菜单管理</el-menu-item>
-          </el-sub-menu>
+          <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -26,6 +19,9 @@
 
 <script setup lang="ts">
 import Logo from './logo/index.vue'
+import Menu from './menu/index.vue'
+import useUserStore from '@/store/modules/user'
+const userStore = useUserStore()
 </script>
 
 <style scoped lang="scss">
@@ -42,6 +38,10 @@ import Logo from './logo/index.vue'
       height: calc(100vh - $base-menu-logo-height);
       .custom-menu {
         --el-menu-bg-color: #001e3a;
+        --el-menu-text-color: #fff;
+      }
+      .el-menu {
+        border-right: none;
       }
     }
   }
