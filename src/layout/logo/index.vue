@@ -7,6 +7,7 @@
 
 <script setup>
 import setting from '@/setting'
+const props = defineProps(['collapse'])
 </script>
 
 <style lang="scss" scoped>
@@ -16,7 +17,9 @@ import setting from '@/setting'
   color: white;
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
+  overflow: hidden;
+  white-space: nowrap;
   img {
     width: 45px;
     height: 45px;
