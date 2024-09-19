@@ -6,10 +6,10 @@
       :index="item.path"
       @click="clickMenu"
     >
+      <el-icon>
+        <component :is="item.icon"></component>
+      </el-icon>
       <template #title>
-        <el-icon>
-          <component :is="item.icon"></component>
-        </el-icon>
         <span>{{ item.label }}</span>
       </template>
     </el-menu-item>
@@ -21,10 +21,10 @@
       :index="item.children[0].path"
       @click="clickMenu"
     >
+      <el-icon>
+        <component :is="item.children[0].icon"></component>
+      </el-icon>
       <template #title>
-        <el-icon>
-          <component :is="item.children[0].icon"></component>
-        </el-icon>
         <span>{{ item.children[0].label }}</span>
       </template>
     </el-menu-item>

@@ -9,6 +9,7 @@
           class="custom-menu"
           background-color="#001e3a"
           text-color="#fff"
+          :default-active="route.path"
         >
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
@@ -31,7 +32,9 @@
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
 import useUserStore from '@/store/modules/user'
+import { useRoute } from 'vue-router'
 const userStore = useUserStore()
+const route = useRoute()
 </script>
 
 <style scoped lang="scss">
