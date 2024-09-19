@@ -5,7 +5,11 @@
       <Logo></Logo>
       <!-- 菜单 -->
       <el-scrollbar class="scrollbar">
-        <el-menu class="custom-menu">
+        <el-menu
+          class="custom-menu"
+          background-color="#001e3a"
+          text-color="#fff"
+        >
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
       </el-scrollbar>
@@ -13,7 +17,13 @@
     <!-- 顶部导航 -->
     <div class="layout_nav">456</div>
     <!-- 内容区 -->
-    <div class="layout_main">789</div>
+    <div class="layout_main">
+      <router-view v-slot="{ Component }">
+        <transition name="fade">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </div>
   </div>
 </template>
 
@@ -37,8 +47,6 @@ const userStore = useUserStore()
       width: 100%;
       height: calc(100vh - $base-menu-logo-height);
       .custom-menu {
-        --el-menu-bg-color: #001e3a;
-        --el-menu-text-color: #fff;
       }
       .el-menu {
         border-right: none;
@@ -62,6 +70,18 @@ const userStore = useUserStore()
     top: $base-nav-height;
     padding: 20px;
     overflow: auto;
+    //路由跳转的过渡动画
+    .fade-enter-from {
+      opacity: 0;
+      transform: scale(0);
+    }
+    .fade-enter-active {
+      transition: all 0.3s;
+    }
+    .fade-enter-to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 </style>
