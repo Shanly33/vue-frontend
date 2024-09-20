@@ -33,7 +33,7 @@
     >
       <router-view v-slot="{ Component }">
         <transition name="fade">
-          <component :is="Component" />
+          <component :is="Component" v-if="flag" />
         </transition>
       </router-view>
     </div>
@@ -41,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+import { watch, ref, nextTick } from 'vue'
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
 import Nav from './nav/index.vue'
@@ -50,6 +51,17 @@ import { useRoute } from 'vue-router'
 const userStore = useUserStore()
 const route = useRoute()
 const LayOutSettingStore = useLayOutSettingStore()
+const flag = ref(true)
+
+watch(
+  () => LayOutSettingStore.refresh,
+  () => {
+    flag.value = false
+    nextTick(() => {
+      flag.value = true
+    })
+  },
+)
 </script>
 
 <style scoped lang="scss">

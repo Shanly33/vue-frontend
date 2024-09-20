@@ -23,8 +23,18 @@
       </el-breadcrumb>
     </div>
     <div class="nav_right">
-      <el-button size="default" icon="Refresh" circle></el-button>
-      <el-button size="default" icon="FullScreen" circle></el-button>
+      <el-button
+        size="default"
+        icon="Refresh"
+        circle
+        @click="updateRefresh"
+      ></el-button>
+      <el-button
+        size="default"
+        icon="FullScreen"
+        circle
+        @click="fullScreen"
+      ></el-button>
       <el-button size="default" icon="Setting" circle></el-button>
       <img src="@/assets/images/avatar.png" alt="" />
       <el-dropdown>
@@ -54,6 +64,20 @@ const route = useRoute()
 const changeCollapse = () => {
   LayOutSettingStore.collapse = !LayOutSettingStore.collapse
 }
+
+const updateRefresh = () => {
+  LayOutSettingStore.refresh = !LayOutSettingStore.refresh
+}
+
+const fullScreen = () => {
+  //DOM对象的一个属性:可以用来判断当前是不是全屏模式{全屏:true,非全屏:null}
+  const full = document.fullscreenElement
+  if (!full) {
+    document.documentElement.requestFullscreen()
+  } else {
+    document.exitFullscreen()
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -79,6 +103,7 @@ const changeCollapse = () => {
   .nav_right {
     display: flex;
     align-items: center;
+    margin-right: 20px;
     img {
       width: 30px;
       height: 30px;
