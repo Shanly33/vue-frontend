@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-//创建axios实例
+import useUserStore from '@/store/modules/user'
 
+//创建axios实例
 let request = axios.create({
   baseURL: (import.meta as any).env.VITE_APP_BASE_API,
   timeout: 5000,
@@ -10,13 +11,12 @@ let request = axios.create({
 //请求拦截器
 request.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token') //假设token存储在localStorage中
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+    const userStore = useUserStore()
+    if (userStore.token) {
+      config.headers.token = userStore.token
+    } else {
+      throw new Error('Token not found')
     }
-    // else {
-    //   throw new Error('Token not found')
-    // }
     return config
   },
   (error) => {

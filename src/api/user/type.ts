@@ -17,7 +17,7 @@ export interface loginResponseData {
 
 interface userInfo {
   userId: number
-  avater: string
+  avatar: string
   username: string
   password: string
   desc: string

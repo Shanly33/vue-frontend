@@ -36,10 +36,10 @@
         @click="fullScreen"
       ></el-button>
       <el-button size="default" icon="Setting" circle></el-button>
-      <img src="@/assets/images/avatar.png" alt="" />
+      <img :src="userStore.avatar" alt="" />
       <el-dropdown>
         <span class="el-dropdown-link">
-          admin
+          {{ userStore.username }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -56,7 +56,10 @@
 
 <script setup lang="ts">
 import useLayOutSettingStore from '@/store/modules/setting'
+import useUserStore from '@/store/modules/user'
 import { useRoute } from 'vue-router'
+
+const userStore = useUserStore()
 
 const LayOutSettingStore = useLayOutSettingStore()
 const route = useRoute()
