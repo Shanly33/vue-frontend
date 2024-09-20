@@ -7,8 +7,19 @@
         ></component>
       </el-icon>
       <el-breadcrumb separator-icon="ArrowRight">
-        <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+        <el-breadcrumb-item
+          v-for="(item, index) in route.matched"
+          :key="index"
+          v-show="item.meta.label"
+          :to="item.path"
+        >
+          <p class="breadcrumb_item">
+            <el-icon style="margin-right: 5px">
+              <component :is="item.meta.icon"></component>
+            </el-icon>
+            <span>{{ item.meta.label }}</span>
+          </p>
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="nav_right">
@@ -35,8 +46,11 @@
 
 <script setup lang="ts">
 import useLayOutSettingStore from '@/store/modules/setting'
+import { useRoute } from 'vue-router'
 
 const LayOutSettingStore = useLayOutSettingStore()
+const route = useRoute()
+
 const changeCollapse = () => {
   LayOutSettingStore.collapse = !LayOutSettingStore.collapse
 }
@@ -57,6 +71,10 @@ const changeCollapse = () => {
     display: flex;
     align-items: center;
     margin-left: 20px;
+    .breadcrumb_item {
+      display: flex;
+      align-items: center;
+    }
   }
   .nav_right {
     display: flex;

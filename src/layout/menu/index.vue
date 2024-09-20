@@ -7,10 +7,10 @@
       @click="clickMenu"
     >
       <el-icon>
-        <component :is="item.icon"></component>
+        <component :is="item.meta.icon"></component>
       </el-icon>
       <template #title>
-        <span>{{ item.label }}</span>
+        <span>{{ item.meta.label }}</span>
       </template>
     </el-menu-item>
     <!-- 只有一个子路由 -->
@@ -22,10 +22,10 @@
       @click="clickMenu"
     >
       <el-icon>
-        <component :is="item.children[0].icon"></component>
+        <component :is="item.children[0].meta.icon"></component>
       </el-icon>
       <template #title>
-        <span>{{ item.children[0].label }}</span>
+        <span>{{ item.children[0].meta.label }}</span>
       </template>
     </el-menu-item>
 
@@ -36,9 +36,9 @@
     >
       <template #title>
         <el-icon>
-          <component :is="item.icon"></component>
+          <component :is="item.meta.icon"></component>
         </el-icon>
-        <span>{{ item.label }}</span>
+        <span>{{ item.meta.label }}</span>
       </template>
       <Menu :menuList="item.children"></Menu>
     </el-sub-menu>
